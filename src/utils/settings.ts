@@ -12,8 +12,9 @@ export async function getSettingValue(key: string, envFallbackName: string): Pro
         .eq("user_id", user.id)
         .maybeSingle();
 
-      if (!error && settings && settings[key]) {
-        return settings[key];
+      if (!error && settings) {
+        const val = (settings as Record<string, any>)[key];
+        if (val) return val;
       }
     }
   } catch (e) {
